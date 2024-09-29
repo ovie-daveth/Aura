@@ -1,6 +1,6 @@
 import { Slot, Stack } from 'expo-router';
 import React from 'react';
-import { Text } from 'react-native';
+import {useFonts} from 'expo-font'
 
 export default function TabLayout() {
 
