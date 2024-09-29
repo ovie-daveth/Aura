@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import {useFonts} from 'expo-font'
 
 SplashScreen.preventAutoHideAsync()
-export default function TabLayout() {
+export default function RootLayout() {
       const [fontsLoaded, error] = useFonts({
         "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
         "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
