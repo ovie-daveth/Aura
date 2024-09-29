@@ -1,21 +1,14 @@
-import { Image, StyleSheet, Platform, ScrollView, Text, View } from 'react-native';
-
+import { Text, View } from 'react-native';
+import { Link } from 'expo-router';
+import {StatusBar} from "expo-status-bar"
 
 export default function HomeScreen() {
   return (
-      <View style={styles.container}>
-        <Text>Hello</Text>
+      <View className='flex items-center justify-center flex-1 min-h-screen'>
+        <Text className="text-3xl text-red-500">Hello</Text>
+        <StatusBar style='auto' />
+        <Link href='/Profile' style={{color: 'blue'}}>Go to Profile</Link>
       </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
-  }
-  
-});
