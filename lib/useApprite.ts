@@ -25,7 +25,7 @@ const useAppwrite = (fn: any) => {
         getAllPosts();
     }, [])
 
-    const refetch = () => getAllPosts()
+    const refetch = () => getAllPosts();
 
     return {posts, isLoading, refetch}
 
