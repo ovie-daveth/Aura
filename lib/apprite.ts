@@ -1,4 +1,4 @@
-import { Client, Account, ID, Avatars, Databases } from 'react-native-appwrite';
+import { Client, Account, ID, Avatars, Databases, Query } from 'react-native-appwrite';
 
 export type createUserReuest = {
     email: string,
@@ -49,7 +49,7 @@ export const CreateAccount = async ({email, password, username} : createUserReue
         avatar: avatarUrl
     })
         return newUser;
-
+ 
        } catch (error) {
         console.log(error)
        }
@@ -63,5 +63,23 @@ export async function SignIn(email: string, password: string){
     } catch (error: any) {
         throw new Error(error);
         
+    }
+}
+
+
+export const getCurrentUser = async() => {
+    try {
+        const user = await account.get();
+
+        if(!user) throw Error;
+
+        const currentUser = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('accountId', user.$id)]);
+
+        if(!currentUser) throw Error;
+
+        return currentUser.documents[0];
+
+    } catch (error) {
+        console.log(error)
     }
 }

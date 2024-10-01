@@ -6,8 +6,21 @@ import { images } from '@/constants';
 import CustomButton from './components/CustomButton';
 import {router, Redirect} from "expo-router"
 import 'react-native-url-polyfill/auto'
+import { useGlobalContext } from '@/context/globalProvider';
+import { useEffect } from 'react';
 
 export default function HomeScreen() {
+
+  const {isLoading, isLoggdedIn} = useGlobalContext();
+
+  // useEffect(() => {
+  //   if(isLoggdedIn){
+  //     router.push('/home');
+  //   }
+  // }, [isLoggdedIn])
+
+  if(!isLoading && isLoggdedIn) return <Redirect href="/home" />
+
   return (
      <SafeAreaView className='bg-primary h-full'>
       <ScrollView contentContainerStyle={{height: '100%'}}>
