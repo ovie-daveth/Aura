@@ -1,14 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { getCurrentUser } from "@/lib/apprite";
 import { Alert } from "react-native";
+import { User } from "@/variables/User";
 
-
-interface User {
-  accountId: string,
-  email: string,
-  username: string,
-  avatar: string
-}
 
 interface GlobalContextType {
   isLoggdedIn: boolean;

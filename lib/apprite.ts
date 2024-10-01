@@ -83,3 +83,18 @@ export const getCurrentUser = async() => {
         console.log(error)
     }
 }
+
+export const getPosts = async() => {
+    try {
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.videoCollectionId
+        );
+    
+       if(!posts) throw Error;
+
+       return posts.documents;
+    } catch (error) {
+        console.log(error)
+    }
+}
