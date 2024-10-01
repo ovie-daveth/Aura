@@ -1,22 +1,36 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '@/constants'
 import FormField from '../components/FormField'
 import CustomButton from '../components/CustomButton'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import { CreateAccount, createUserReuest } from '@/lib/apprite'
 
 const SignUpScreen = () => {
 
   const [isSubmitting, setisSubmitting] = useState(false)
-  const [form, setform] = useState({
+  const [form, setform] = useState<createUserReuest>({
     email: "",
     password: "",
     username: ""
     
   })
 
-  const submit = () => {
+  const submit = async () => {
+    if(!form.username || !form.email || !form.password) Alert.alert('Error', "Form cannot be empty");
+
+    setisSubmitting(true);
+
+    try {
+      const result = await CreateAccount(form);
+
+      router.replace('/home');
+    } catch (error: any) {
+      Alert.alert('Error', error.message)
+    } finally {
+      setisSubmitting(false)
+    }
 
   }
   return (

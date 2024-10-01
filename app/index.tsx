@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '@/constants';
 import CustomButton from './components/CustomButton';
 import {router, Redirect} from "expo-router"
+import 'react-native-url-polyfill/auto'
 
 export default function HomeScreen() {
   return (
