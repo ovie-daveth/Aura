@@ -8,12 +8,13 @@ import TrendingVideo from '../components/TrendingVideo'
 import EmptyState from '../components/EmptyState'
 import Posts from '../components/Posts'
 import useAppwrite from '@/lib/useApprite'
-import { getPosts } from '@/lib/apprite'
+import { getLatestPost, getPosts } from '@/lib/apprite'
 
 
 const home = () => {
 
   const { posts, isLoading, refetch } = useAppwrite(getPosts);
+  const { posts: latest } = useAppwrite(getLatestPost);
   const [refreshing, setRefreshing] = useState(false);
  
 
@@ -25,7 +26,7 @@ const home = () => {
 
   return (
     <SafeAreaView className='bg-primary pb-10 h-full'>
-      <StatusBar style='dark' />
+      <StatusBar style='light' />
       <FlatList 
         data={posts}
         // data={[]}
@@ -47,7 +48,7 @@ const home = () => {
 
                 <View className='w-full flex-1 pt-1 pb-5'>
                   <Text className='text-gray-100 text-lg font-pregular mb-3'>Latest Videos</Text>
-                  <TrendingVideo posts={[{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}] ?? []} />
+                  <TrendingVideo posts={latest} />
                 </View>
           </View>
         )}

@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { PostInterface } from '@/variables/Post'
 import { icons } from '@/constants';
+import { ResizeMode, Video } from 'expo-av';
 
 interface PostProp {
     post: PostInterface;
@@ -29,7 +30,18 @@ const Posts: React.FC<PostProp> = ({ post: {creator: {username, avatar}, title, 
         </View>
         {
             isPlay ? (
-                <Text>Playing</Text>
+                <Video
+          source={{ uri: video }} 
+          className='w-full h-60 rounded-[20px] mt-3 bg-white/10' 
+          resizeMode={ResizeMode.COVER}
+          useNativeControls
+          shouldPlay
+          onPlaybackStatusUpdate={(status) => {
+            if(status.isLoaded) {
+              setIsPlay(false)
+            }
+          }}
+        />
             ) : (
                 <TouchableOpacity
                 activeOpacity={0.7}
