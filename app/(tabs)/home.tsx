@@ -9,6 +9,7 @@ import EmptyState from '../components/EmptyState'
 import Posts from '../components/Posts'
 import useAppwrite from '@/lib/useApprite'
 import { getLatestPost, getPosts } from '@/lib/apprite'
+import { useGlobalContext } from '@/context/globalProvider'
 
 
 const home = () => {
@@ -16,6 +17,8 @@ const home = () => {
   const { posts, isLoading, refetch } = useAppwrite(getPosts);
   const { posts: latest } = useAppwrite(getLatestPost);
   const [refreshing, setRefreshing] = useState(false);
+  
+  const {user, setUser, isLoggdedIn, setIsLoggdedIn} = useGlobalContext();
  
 
   const onRefresh = async() => {
@@ -37,14 +40,14 @@ const home = () => {
               <View className='justify-between flex-row mb-6 items-start'>
                 <View>
                   <Text className='font-pmedium text-sm  text-gray-100'>Welcome Back</Text>
-                  <Text className='text-2xl font-psemibold text-white'>Rusti</Text>
+                  <Text className='text-2xl font-psemibold text-white'>{user?.username}</Text>
                 </View>
                 <View className='mt-1.5'>
                   <Image source={images.logoSmall} className='w-9 h-10' resizeMode='contain' />
                 </View>
               </View>
 
-              <SearchInput otherStyle='Search' placeHolder='Search for a video topic' title='search'  value="" handleChange={() => ("")} />
+              <SearchInput  placeHolder='Search for a video topic'  value="" />
 
                 <View className='w-full flex-1 pt-1 pb-5'>
                   <Text className='text-gray-100 text-lg font-pregular mb-3'>Latest Videos</Text>

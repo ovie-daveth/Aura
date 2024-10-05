@@ -1,3 +1,4 @@
+import { User } from '@/variables/User';
 import { Client, Account, ID, Avatars, Databases, Query } from 'react-native-appwrite';
 
 export type createUserReuest = {
@@ -66,6 +67,17 @@ export async function SignIn(email: string, password: string){
     }
 }
 
+export async function SignOut(){
+    try {
+        const session = await account.deleteSession('current');
+
+        return session;
+    } catch (error: any) {
+        throw new Error(error);
+        
+    }
+}
+
 
 export const getCurrentUser = async() => {
     try {
@@ -73,7 +85,7 @@ export const getCurrentUser = async() => {
 
         if(!user) throw Error;
 
-        const currentUser = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('accountId', user.$id)]);
+        const currentUser = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [Query.equal('accountId', user?.$id)]);
 
         if(!currentUser) throw Error;
 
@@ -114,3 +126,47 @@ export const getLatestPost = async() => {
         console.log(error)
     }
 }
+
+
+export const searchPost = async (query: any) => {
+    try {
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.videoCollectionId,
+            [Query.search('title', query)]
+        );
+
+        // Ensure the response is valid
+        if (!posts) throw new Error("No posts found");
+
+        return posts.documents; // Return the documents if found
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        // You can return an empty array or handle the error accordingly
+        return [];
+    }
+}
+
+export const getPostByAuthor = async (query: User) => {
+    if(query == null || !query){
+        return null
+    }
+
+    try {
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.videoCollectionId,
+            [Query.equal('creator', query?.$id)]
+        );
+
+        // Ensure the response is valid
+        if (!posts) throw new Error("No posts found");
+
+        return posts.documents; // Return the documents if found
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        // You can return an empty array or handle the error accordingly
+        return [];
+    }
+}
+

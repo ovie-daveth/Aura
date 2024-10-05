@@ -7,7 +7,7 @@ import { User } from "@/variables/User";
 interface GlobalContextType {
   isLoggdedIn: boolean;
   setIsLoggdedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  user: any;
+  user: User;
   setUser: React.Dispatch<React.SetStateAction<any>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,7 +29,7 @@ interface GlobalProviderProps {
 
 const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [isLoggdedIn, setIsLoggdedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

@@ -18,7 +18,7 @@ const SignUpScreen = () => {
   })
 
   const submit = async () => {
-    if(!form.username || !form.email || !form.password) Alert.alert('Error', "Form cannot be empty");
+    if(!form?.username || !form?.email || !form.password) Alert.alert('Error', "Form cannot be empty");
 
     setisSubmitting(true);
 
